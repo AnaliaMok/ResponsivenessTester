@@ -1,0 +1,62 @@
+[
+    {
+        "device": "phone-Nexus6P",
+        "width": "1440px",
+        "height": "2560px"
+    },
+    {
+        "device": "phone-Nexus5X",
+        "width": "1080px",
+        "height": "1920px"
+    },
+    {
+        "device": "phone-GooglePixel",
+        "width": "1080px",
+        "height": "1920px"
+    },
+    {
+        "device": "phone-GooglePixelXL",
+        "width": "1440px",
+        "height": "2560px"
+    },
+    {
+        "device": "phone-SamsungGalaxyNote5",
+        "width": "1440px",
+        "height": "2560px"
+    },
+    {
+        "device": "phone-LGG5",
+        "width": "1440px",
+        "height": "2560px"
+    },
+    {
+        "device": "phone-OnePlus3",
+        "width": "1080px",
+        "height": "1920px"
+    },
+    {
+        "device": "phone-GalaxyS7/S7Edge",
+        "width": "1440px",
+        "height": "2560px"
+    },
+    {
+        "device": "tablet-Nexus7(2013)",
+        "width": "1200px",
+        "height": "1920px"
+    },
+    {
+        "device": "tablet-Nexus9",
+        "width": "1536px",
+        "height": "2048px"
+    },
+    {
+        "device": "tablet-SamsungGalaxyTab10",
+        "width": "800px",
+        "height": "1280px"
+    },
+    {
+        "device": "tablet-ChromebookPixel",
+        "width": "2560px",
+        "height": "1700px"
+    }
+]

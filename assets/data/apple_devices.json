@@ -1,0 +1,57 @@
+[
+    {
+        "device": "iPhone-7Plus",
+        "width": "1080px",
+        "height": "1920px"
+    },
+    {
+        "device": "iPhone-7",
+        "width": "750px",
+        "height": "1334px"
+    },
+    {
+        "device": "iPhone-6Plus/6SPlus",
+        "width": "1080px",
+        "height": "1920px"
+    },
+    {
+        "device": "iPhone-6/6S",
+        "width": "750px",
+        "height": "1334px"
+    },
+    {
+        "device": "iPhone-5",
+        "width": "640px",
+        "height": "1136px"
+    },
+    {
+        "device": "iPod-Touch",
+        "width": "640px",
+        "height": "1136px"
+    },
+    {
+        "device": "iPad-Pro",
+        "width": "2048px",
+        "height": "2732px"
+    },
+    {
+        "device": "iPad-3/4Gen",
+        "width": "2048px",
+        "height": "2732px"
+    },
+    {
+        "device": "iPad-Air",
+        "width": "1536px",
+        "height": "2048px"
+    },
+    {
+        "device": "iPad-Mini",
+        "width": "768px",
+        "height": "1024"
+    },
+    {
+        "device": "iPad-Mini2/3",
+        "width": "1536px",
+        "height": "2048px"
+    }
+]
