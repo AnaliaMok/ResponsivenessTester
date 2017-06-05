@@ -27,9 +27,11 @@
         <main>
             <div id="url-input-holder">
                 <h2>Current URL:</h2>
-                <input type="text" name="url" placeholder="Enter url here"
-                    id="url-input" onkeydown="return changeURL(event);">
-            </div>
+                <form method="post" action="" name="urlForm">
+                    <input type="text" name="url" placeholder="Enter url here"
+                    id="url-input">
+                </form>
+            </div><!-- End of url-input-holder -->
             <div id="device-inputs">
                 <!-- Option Radio Buttons -->
                 <div id="displayButtons">
@@ -81,7 +83,7 @@
                         <input type="submit" value="Add">
                         <button type="button" name="delete" id="del-btn">Remove</button>
                     </form>
-                    </div><!-- End of deviceOptions-->
+                </div><!-- End of deviceOptions-->
             </div><!-- End of inputs -->
 
             <!-- Where various screens are displayed -->
@@ -93,9 +95,7 @@
                         echo "</iframe>";
                     }
                 ?>
-            </div>
-
+            </div><!-- End of output -->
         </main>
-
     </body>
 </html>

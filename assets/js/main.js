@@ -16,6 +16,8 @@ window.onload = init;
 function init(){
     // URL Input
     var urlInput = document.getElementById("url-input");
+    // Method used to submit the url form when user presses enter
+    urlInput.onkeydown = submitURLForm;
 
     // Radio Buttons
     var widthRadioBtn = document.getElementById("width");
@@ -24,6 +26,20 @@ function init(){
     deviceRadioBtn.onclick = toggleOptionDisplay;
 } // End of init
 
+
+/**
+ * changeURL - submits url form
+ * @return null
+ */
+function submitURLForm(){
+
+    if(window.event.keyCode == "13"){
+        // if enter key pressed
+        document.urlForm.submit();
+        document.urlForm.method = "post";
+    }
+
+} // End of submitURLForm
 
 /**
  * toggleOptionDisplay - Toggle the visibility of the
