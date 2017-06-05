@@ -1,3 +1,12 @@
+<?php
+    // Constant array for storing set screen widths
+    $COMMON_WIDTHS = array(240, 320, 768, 1024, 1366, 1440, 1920);
+    // Default url to use for displaying iframes
+    $url = "https://www.w3schools.com/";
+
+    // including methods defined in filer.php - handles all form validation
+    include "filter.php";
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,36 +25,40 @@
                 - Android Devices (up to 5 at a time)
         -->
         <main>
-            <h2>Current URL:</h2>
-            <input type="text" name="url" placeholder="Enter url here" id="url-input" onkeydown="return changeURL(event);">
+            <div id="url-input-holder">
+                <h2>Current URL:</h2>
+                <input type="text" name="url" placeholder="Enter url here"
+                    id="url-input" onkeydown="return changeURL(event);">
+            </div>
+            <div id="device-inputs">
+                <!-- Option Radio Buttons -->
+                <div id="displayButtons">
+                    <h2>Display Options:</h2>
+                    <input type="radio" name="displayOptions" value="width" id="width" checked>
+                    <label for="width">By width</label>
+                    <input type="radio" name="displayOptions" value="device" id="device">
+                    <label for="device">By device</label>
 
-            <h2>Display Options:</h2>
+                    <!-- Dropdowns for Apple & Android Devices -->
+                    <?php
+                        function fillDropdowns($filePath){
+                            $fileContents = file_get_contents($filePath);
+                            // Multidimensional array
+                            $data = json_decode($fileContents, true);
+                            usort($data, function($first, $second){
+                                return (int)$first['width'] > (int)$second['width'];
+                            });
 
-            <!-- Option Radio Buttons -->
-            <div id="displayButtons">
-                <input type="radio" name="displayOptions" value="width" id="width" checked>
-                <label for="width">By width</label>
-                <input type="radio" name="displayOptions" value="device" id="device">
-                <label for="device">By device</label>
-
-                <!-- Dropdowns for Apple & Android Devices -->
-                <?php
-                    function fillDropdowns($filePath){
-                        $fileContents = file_get_contents($filePath);
-                        $data = json_decode($fileContents, true);
-
-                        $totalItems = count($data);
-                        for($i = 0; $i < $totalItems; $i++){
-                            $currItem = $data[$i];
-                            echo "<option>";
-                            $width = str_replace("px", "", $currItem["width"]);
-                            $height = str_replace("px", "", $currItem["height"]);
-                            echo $currItem["device"]." (".$width."x".$height.")";
-                            echo "</option>";
+                            $totalItems = count($data);
+                            for($i = 0; $i < $totalItems; $i++){
+                                $currItem = $data[$i];
+                                echo "<option>";
+                                echo $currItem["device"]." (".$currItem["width"]."x".$currItem["height"].")";
+                                echo "</option>";
+                            }
                         }
-                    }
-                ?>
-
+                    ?>
+                </div><!-- End of displayButtons -->
                 <div id="deviceOptions">
                     <form class="appleDeviceSelection" action="filter.php" method="get">
                         <p>Apple Devices</p>
@@ -68,14 +81,18 @@
                         <input type="submit" value="Add">
                         <button type="button" name="delete" id="del-btn">Remove</button>
                     </form>
-                </div><!-- End of deviceOptions-->
-            </div><!-- End of displayButtons -->
+                    </div><!-- End of deviceOptions-->
+            </div><!-- End of inputs -->
 
             <!-- Where various screens are displayed -->
             <div id="output">
-                <!-- 240 (really small),
-                    320, 768, 1024, 1366, 1440, 1920, 3200 (really big)
-                -->
+                <?php
+                    foreach($COMMON_WIDTHS as $curr){
+                        echo "<iframe src='".$url."' ";
+                        echo "width='".$curr."' height='500'>";
+                        echo "</iframe>";
+                    }
+                ?>
             </div>
 
         </main>

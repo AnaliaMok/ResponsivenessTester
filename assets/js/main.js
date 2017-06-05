@@ -39,6 +39,6 @@ function toggleOptionDisplay(){
         displayOptions.style.display = "none";
     }else{
         // Show on device-based testing
-        displayOptions.style.display = "block";
+        displayOptions.style.display = "inline-block";
     }
 } // End of toggleOptionDisplay
