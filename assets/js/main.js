@@ -25,9 +25,6 @@ function init(){
     widthRadioBtn.onclick = toggleOptionDisplay;
     deviceRadioBtn.onclick = toggleOptionDisplay;
 
-    // Fill output div
-    changeFrames("width");
-
 } // End of init
 
 
@@ -67,6 +64,9 @@ function toggleOptionDisplay(){
         source = "device";
     }
 
+    // Change what frames are being displayed
+    changeFrames(source);
+
 } // End of toggleOptionDisplay
 
 
@@ -88,7 +88,11 @@ function changeFrames(source){
     };
 
     /* TODO: Change to post */
-    xmlhttp.open("GET", "filter.php?source=" + source, true);
-    xmlhttp.send();
+    xmlhttp.open("POST", "filter.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // Grab current url
+    var currURL = document.getElementById("url-input").value;
+    var params = "source="+source+"&url="+currURL;
+    xmlhttp.send(params);
 
 } // End of changeFrames

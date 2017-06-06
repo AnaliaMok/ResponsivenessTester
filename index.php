@@ -1,4 +1,6 @@
 <?php
+    // URL used by the iframes - by default, just current page
+    $url = "./placeholder.html";
     // including methods defined in filer.php - handles all form validation
     include "filter.php";
 ?>
@@ -49,6 +51,7 @@
                         </select>
 
                         <!-- Add device to view output area -->
+                        <!-- TODO: Might change to buttons -->
                         <input type="submit" value="Add">
                         <button type="button" name="delete" class="del-btn">Remove</button>
                     </form>
@@ -61,6 +64,7 @@
                         </select>
 
                         <!-- Add device to view output area -->
+                        <!-- TODO: Might change to buttons -->
                         <input type="submit" value="Add">
                         <button type="button" name="delete" class="del-btn">Remove</button>
                     </form>
@@ -68,6 +72,8 @@
             </div><!-- End of inputs -->
         </main>
         <!-- Where various screens are displayed -->
-        <div id="output"></div><!-- End of output -->
+        <div id="output">
+            <?php createFrames("width", $url); ?>
+        </div><!-- End of output -->
     </body>
 </html>

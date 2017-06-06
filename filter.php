@@ -12,7 +12,7 @@
     $COMMON_WIDTHS = array(240, 320, 768, 1024, 1366, 1440);
 
     // URL used by the iframes - by default, just current page
-    $url = "./placeholder.html";
+    //$url = "./placeholder.html";
 
     // checker for submitted task
     if(isset($_POST['task']) && $_POST['task'] != ""){
@@ -29,7 +29,7 @@
 
     if(isset($_REQUEST['source']) && $_REQUEST['source'] != "") {
         // If the source type for the iframes has been set, echo out iframes.
-        createFrames($_REQUEST['source']);
+        createFrames($_REQUEST['source'], $_REQUEST['url']);
     }
 
     /**
@@ -63,12 +63,23 @@
      *      Displays iframes based on COMMON_WIDTHS array on initial window load
      *      or display by width is selected. Displays iframes based on device
      *      widths stored in json files otherwise.
+     * @param source String indicating what type of iframes to echo
      * @return null
      */
-    function createFrames(){
-        global $COMMON_WIDTHS, $url;
+    function createFrames($source, $url){
+        global $COMMON_WIDTHS;
+        //$url = $GLOBALS['url'];
 
-        foreach($COMMON_WIDTHS as $curr){
+        if($source == "width"){
+            $frameData = $COMMON_WIDTHS;
+            echo "By width";
+        }else{
+            // TODO: Change to actual data
+            $frameData = array(200, 300, 400);
+            echo "By device";
+        }
+
+        foreach($frameData as $curr){
             // Place each iframe and it's width title
             // together in one div
             echo "<div class='frame-holder'>";
@@ -78,6 +89,7 @@
             echo "</iframe>";
             echo "</div>\n\t\t\t\t";
         }
+
     } // End of createFrames
 
 ?>
