@@ -91,9 +91,14 @@
             <div id="output">
                 <?php
                     foreach($COMMON_WIDTHS as $curr){
+                        // Place each iframe and it's width title
+                        // together in one div
+                        echo "<div class='frame-holder'>";
+                        echo "<span>".$curr."</span>";
                         echo "<iframe src='".$url."' ";
                         echo "width='".$curr."' height='500'>";
-                        echo "</iframe>\n\t\t\t\t";
+                        echo "</iframe>";
+                        echo "</div>\n\t\t\t\t";
                     }
                 ?>
 

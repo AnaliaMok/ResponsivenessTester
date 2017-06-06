@@ -5,6 +5,9 @@
         if($_POST['task'] == "changeURL"){
             // Changing the url variable
             $url = (isset($_POST['url']) && ($_POST['url'] != "#")) ? $_POST['url'] : "https://www.w3schools.com/";
+            if(strpos($url, "https://") === FALSE){
+                $url = "https://".$url;
+            }
         }
     }else{
         // Default value for url used in iframes

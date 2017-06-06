@@ -59,8 +59,20 @@ div#output{
     margin-top: 2%;
 }
 
-iframe{
+/* Container for iframes and title */
+div.frame-holder{
+    display: inline-block;
     margin-right: 1rem;
     margin-bottom: 1rem;
-    float: left;
+}
+
+div.frame-holder span,
+div.frame-holder iframe{
+    display: block;
+}
+
+/* Tag holding frame title */
+div.frame-holder span{
+    font-size: 1.5rem;
+    font-weight: 500;
 }
