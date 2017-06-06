@@ -54,16 +54,20 @@ div#deviceOptions form{
 
 /* Output area for various screen sizes */
 div#output{
-    max-height: 60vh;
-    width: auto;
-    margin-top: 2%;
+    /*max-height: 60vh;*/
+    width: 100%;
+    margin: 2% 0 2% 1%;
+    overflow-x: auto;
+    min-width: 5300px;
 }
 
-/* Container for iframes and title */
+/* Containers for iframes and title */
 div.frame-holder{
     display: inline-block;
-    margin-right: 1rem;
+    margin-right: 16px;
     margin-bottom: 1rem;
+    float: left;
+    vertical-align: top;
 }
 
 div.frame-holder span,

@@ -1,24 +1,4 @@
 <?php
-    // Constant array for storing set screen widths
-    $COMMON_WIDTHS = array(240, 320, 768, 1024, 1366, 1440, 1920);
-
-    function fillDropdowns($filePath){
-        $fileContents = file_get_contents($filePath);
-        // Multidimensional array
-        $data = json_decode($fileContents, true);
-        usort($data, function($first, $second){
-            return (int)$first['width'] > (int)$second['width'];
-        });
-
-        $totalItems = count($data);
-        for($i = 0; $i < $totalItems; $i++){
-            $currItem = $data[$i];
-            echo "<option>";
-            echo $currItem["device"]." (".$currItem["width"]."x".$currItem["height"].")";
-            echo "</option>\n\t\t\t\t\t\t\t";
-        }
-    }
-
     // including methods defined in filer.php - handles all form validation
     include "filter.php";
 ?>
@@ -86,8 +66,8 @@
                     </form>
                 </div><!-- End of deviceOptions-->
             </div><!-- End of inputs -->
-
-            <!-- Where various screens are displayed -->
+        </main>
+        <!-- Where various screens are displayed -->
             <div id="output">
                 <?php
                     foreach($COMMON_WIDTHS as $curr){
@@ -103,6 +83,5 @@
                 ?>
 
             </div><!-- End of output -->
-        </main>
     </body>
 </html>

@@ -2,61 +2,73 @@
     {
         "device": "phone-Nexus6P",
         "width": "1440",
-        "height": "2560"
+        "height": "2560",
+        "selected": "false"
     },
     {
         "device": "phone-Nexus5X",
         "width": "1080",
-        "height": "1920"
+        "height": "1920",
+        "selected": "false"
     },
     {
         "device": "phone-GooglePixel",
         "width": "1080",
-        "height": "1920"
+        "height": "1920",
+        "selected": "false"
     },
     {
         "device": "phone-GooglePixelXL",
         "width": "1440",
-        "height": "2560"
+        "height": "2560",
+        "selected": "false"
     },
     {
         "device": "phone-SamsungGalaxyNote5",
         "width": "1440",
-        "height": "2560"
+        "height": "2560",
+        "selected": "false"
     },
     {
         "device": "phone-LGG5",
         "width": "1440",
-        "height": "2560"
+        "height": "2560",
+        "selected": "false"
     },
     {
         "device": "phone-OnePlus3",
         "width": "1080",
-        "height": "1920"
+        "height": "1920",
+        "selected": "false"
     },
     {
         "device": "phone-GalaxyS7/S7Edge",
         "width": "1440",
-        "height": "2560"
+        "height": "2560",
+        "selected": "false"
     },
     {
         "device": "tablet-Nexus7(2013)",
         "width": "1200",
-        "height": "1920"
+        "height": "1920",
+        "selected": "false"
     },
     {
         "device": "tablet-Nexus9",
         "width": "1536",
-        "height": "2048"
+        "height": "2048",
+        "selected": "false"
     },
     {
         "device": "tablet-SamsungGalaxyTab10",
         "width": "800",
-        "height": "1280"
+        "height": "1280",
+        "selected": "false"
     },
     {
         "device": "tablet-ChromebookPixel",
         "width": "2560",
-        "height": "1700"
+        "height": "1700",
+        "selected": "false"
     }
 ]
