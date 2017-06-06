@@ -31,13 +31,15 @@
         }
     } // End of fillDropdowns
 
-
+    // checker for submitted task
     if(isset($_POST['task']) && $_POST['task'] != ""){
         // If the action variable has been set and is not empty (should never be)
         if($_POST['task'] == "changeURL"){
             // Changing the url variable
             $url = (isset($_POST['url']) && ($_POST['url'] != "#")) ? $_POST['url'] : "./placeholder.html";
             if(strpos($url, "https://") === FALSE){
+                // If url does not start with https://
+                // TODO: replace with regex expression
                 $url = "https://".$url;
             }
         }

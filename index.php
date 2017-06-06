@@ -24,7 +24,7 @@
                 <h2>Current URL:</h2>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" name="urlForm">
                     <input type="text" name="url" placeholder="Enter url here"
-                    id="url-input">
+                    id="url-input" value="<?php echo ($url != "./placeholder.html") ? $url: "" ?>">
                     <input type="hidden" name="task" value="changeURL">
                 </form>
             </div><!-- End of url-input-holder -->
@@ -41,7 +41,7 @@
                 </div><!-- End of displayButtons -->
                 <div id="deviceOptions">
                     <!-- Dropdowns for Apple & Android Devices -->
-                    <form class="appleDeviceSelection" action="filter.php" method="get">
+                    <form class="appleDeviceSelection" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
                         <p>Apple Devices</p>
                         <select name="apple-devices">
                             <?php fillDropdowns("assets/data/apple_devices.json"); ?>
@@ -53,7 +53,7 @@
                         <button type="button" name="delete" class="del-btn">Remove</button>
                     </form>
 
-                    <form class="androidDeviceSelection" action="filter.php" method="get">
+                    <form class="androidDeviceSelection" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
                         <p>Android Devices</p>
                         <select name="android-devices">
                             <?php fillDropdowns("assets/data/android_devices.json"); ?>
@@ -81,7 +81,6 @@
                         echo "</div>\n\t\t\t\t";
                     }
                 ?>
-
             </div><!-- End of output -->
     </body>
 </html>
