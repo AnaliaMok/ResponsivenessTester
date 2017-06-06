@@ -2,7 +2,7 @@
     // Constant array for storing set screen widths
     $COMMON_WIDTHS = array(240, 320, 768, 1024, 1366, 1440, 1920);
     // Default url to use for displaying iframes
-    $url = "https://www.w3schools.com/";
+    //$url = "";
 
     // including methods defined in filer.php - handles all form validation
     include "filter.php";
@@ -27,9 +27,10 @@
         <main>
             <div id="url-input-holder">
                 <h2>Current URL:</h2>
-                <form method="post" action="" name="urlForm">
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" name="urlForm">
                     <input type="text" name="url" placeholder="Enter url here"
                     id="url-input">
+                    <input type="hidden" name="task" value="changeURL">
                 </form>
             </div><!-- End of url-input-holder -->
             <div id="device-inputs">

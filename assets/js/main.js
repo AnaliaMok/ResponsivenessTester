@@ -35,8 +35,8 @@ function submitURLForm(){
 
     if(window.event.keyCode == "13"){
         // if enter key pressed
-        document.urlForm.submit();
         document.urlForm.method = "post";
+        document.urlForm.submit();
     }
 
 } // End of submitURLForm
