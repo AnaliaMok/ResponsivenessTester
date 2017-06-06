@@ -9,13 +9,13 @@
         "device": "iPhone-7",
         "width": "750",
         "height": "1334",
-        "selected": "false"
+        "selected": "true"
     },
     {
         "device": "iPhone-6Plus/6SPlus",
         "width": "1080",
         "height": "1920",
-        "selected": "false"
+        "selected": "true"
     },
     {
         "device": "iPhone-6/6S",
@@ -27,7 +27,7 @@
         "device": "iPhone-5",
         "width": "640",
         "height": "1136",
-        "selected": "false"
+        "selected": "true"
     },
     {
         "device": "iPod-Touch",
@@ -39,7 +39,7 @@
         "device": "iPad-Pro",
         "width": "2048",
         "height": "2732",
-        "selected": "false"
+        "selected": "true"
     },
     {
         "device": "iPad-3/4Gen",
@@ -57,7 +57,7 @@
         "device": "iPad-Mini",
         "width": "768",
         "height": "1024",
-        "selected": "false"
+        "selected": "true"
     },
     {
         "device": "iPad-Mini2/3",

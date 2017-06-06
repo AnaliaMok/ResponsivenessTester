@@ -24,6 +24,10 @@ function init(){
     var deviceRadioBtn = document.getElementById("device");
     widthRadioBtn.onclick = toggleOptionDisplay;
     deviceRadioBtn.onclick = toggleOptionDisplay;
+
+    // Fill output div
+    changeFrames("width");
+
 } // End of init
 
 
@@ -48,13 +52,43 @@ function submitURLForm(){
  */
 function toggleOptionDisplay(){
     // Div holding the device display options
-    var displayOptions = document.getElementById("deviceOptions");
+    var deviceOptions = document.getElementById("deviceOptions");
+
+    // String to pass with AJAX request
+    var source = "";
 
     if(this.value === "width"){
         // Hide on width based testing
-        displayOptions.style.display = "none";
+        deviceOptions.style.display = "none";
+        source = "width"
     }else{
         // Show on device-based testing
-        displayOptions.style.display = "inline-block";
+        deviceOptions.style.display = "inline-block";
+        source = "device";
     }
+
 } // End of toggleOptionDisplay
+
+
+/**
+ * changeFrames - Method for changing what iframes are to be displayed in the
+ *      output div based on the given source. Makes an AJAX call to filter.php
+ *      to change frames.
+ * @param  source - A String indicating what iframes ot display.
+ * @return {[type]}        [description]
+ */
+function changeFrames(source){
+    // Send AJAX request to change device options
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("output").innerHTML = this.responseText;
+        }
+    };
+
+    /* TODO: Change to post */
+    xmlhttp.open("GET", "filter.php?source=" + source, true);
+    xmlhttp.send();
+
+} // End of changeFrames
