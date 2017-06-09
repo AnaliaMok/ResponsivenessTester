@@ -47,38 +47,39 @@
                 </div><!-- End of displayButtons -->
                 <div id="deviceOptions">
                     <!-- Dropdowns for Apple & Android Devices -->
-                    <form class="appleDeviceSelection" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
+                    <div id="appleDeviceSelection">
                         <p>Apple Devices</p>
-                        <select name="apple-devices">
+                        <select id="appleDevices">
                             <?php fillDropdowns("assets/data/apple_devices.json"); ?>
 
                         </select>
 
                         <!-- Add device to view output area -->
-                        <!-- TODO: Might change to buttons -->
-                        <input type="submit" value="Add">
-                        <button type="button" name="delete" class="del-btn">Remove</button>
-                    </form>
+                        <!-- Might change to buttons -->
+                        <button type="button" name="add" class="apple add-btn">Add</button>
+                        <button type="button" name="delete" class="apple del-btn">Remove</button>
+                    </div><!-- appleDeviceSelection -->
 
-                    <form class="androidDeviceSelection" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
+                    <div id="androidDeviceSelection">
                         <p>Android Devices</p>
-                        <select name="android-devices">
+                        <select id="androidDevices">
                             <?php fillDropdowns("assets/data/android_devices.json"); ?>
 
                         </select>
 
                         <!-- Add device to view output area -->
-                        <!-- TODO: Might change to buttons -->
-                        <input type="submit" value="Add">
-                        <button type="button" name="delete" class="del-btn">Remove</button>
-                    </form>
+                        <button type="button" name="add" class="android add-btn">Add</button>
+                        <!-- Remove device to view output area -->
+                        <button type="button" name="delete" class="android del-btn">Remove</button>
+                    </div><!-- End of androidDeviceSelection -->
                 </div><!-- End of deviceOptions-->
+
             </div><!-- End of inputs -->
         </main>
         <!-- Where various screens are displayed -->
         <div id="output">
             <?php createFrames("width", $url); ?>
-    
+
         </div><!-- End of output -->
 
     </body>

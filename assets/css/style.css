@@ -53,7 +53,7 @@ option.selected{
 }
 
 /* Forms holding device selection */
-div#deviceOptions form{
+div#deviceOptions div{
     display: inline-block;
     margin-right: 2rem;
 }

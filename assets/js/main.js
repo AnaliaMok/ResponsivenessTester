@@ -25,6 +25,17 @@ function init(){
     widthRadioBtn.onclick = toggleOptionDisplay;
     deviceRadioBtn.onclick = toggleOptionDisplay;
 
+    // Device Selection Add & Remove Buttons
+    var appleButtons = document.getElementById("appleDeviceSelection")
+                               .getElementsByClassName("apple");
+    appleButtons[0].onclick = addDevice;
+    appleButtons[1].onclick = removeDevice;
+
+    var androidButtons = document.getElementById("androidDeviceSelection")
+                                 .getElementsByClassName("android");
+    androidButtons[0].onclick = addDevice;
+    androidButtons[1].onclick = removeDevice;
+
 } // End of init
 
 
@@ -41,6 +52,75 @@ function submitURLForm(){
     }
 
 } // End of submitURLForm
+
+
+/**
+ * findDevice - Given a button object, tries to find the respective dropdown
+ *      group and returns the dropdowns current value
+ * @param  Node button - A Button object
+ * @return String current value of either of the two dropdown
+ */
+function findDevice(button){
+
+    // Index 0 will always contain the device type
+    var deviceType = button.classList[0];
+    var deviceName = "";
+
+    switch (deviceType) {
+        case "apple":
+            deviceName =  document.getElementById("appleDevices").value;
+            if(deviceName != ""){
+                return deviceName;
+            }
+            break;
+        case "android":
+            deviceName =  document.getElementById("androidDevices").value;
+            if(deviceName != ""){
+                return deviceName;
+            }
+            break;
+        default:
+            console.log("ERROR: Unknown device type found: " + deviceType);
+            return null;
+    }
+
+    // If reached, no value was found for device
+    console.log("ERROR: No device value found");
+    return null;
+
+} // End of findDevice
+
+
+/**
+ * addDevice - Given a device name, an AJAX call will be made to filter.php
+ *      to find the device object. If any, the responseText will replace the
+ *      current HTML inside div#output.
+ *      NOTE: Attempts to add an already selected device will not cause an error
+ *          The exact same HTML that's already present will be outputted by filter.php
+ *      NOTE: responseText will be sorted by width of the selected devices
+ */
+function addDevice(){
+    // NOTE: 'this' will refer to button itself
+
+    var deviceName = findDevice(this);
+
+    console.log(deviceName);
+
+} // End of addDevice
+
+
+/**
+ * removeDevice - Given a device name, an AJAX call will be made to filter.php
+ *      to remove a device object from the frameData associative array.
+ *
+ */
+function removeDevice(){
+    // NOTE: 'this' will refer to button itself
+
+    var deviceName = findDevice(this);
+
+} // End of removeDevice
+
 
 /**
  * toggleOptionDisplay - Toggle the visibility of the
