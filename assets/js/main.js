@@ -55,6 +55,36 @@ function submitURLForm(){
 
 
 /**
+ * sendAjaxRequest - Method that creates an XHR object, sets its onreadystatechange
+ *      method, and sends a post request to filter.php with params dependent on
+ *      the given argument.
+ * @param  String params - The parameters to send with the ajax request. Formatted
+ *                      appropriately for the send URL
+ * @return null
+ */
+function sendAjaxRequest(params){
+
+    // Instantiating xhr object
+    var xmlhttp = new XMLHttpRequest();
+
+    // On state change will change the contents of the output div
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("output").innerHTML = this.responseText;
+            /* TODO: Change width of output based on frames */
+        }
+    };
+
+    // Setting up post request
+    xmlhttp.open("POST", "filter.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    // Sending
+    xmlhttp.send(params);
+} // End of sendAjaxRequest
+
+
+/**
  * findDevice - Given a button object, tries to find the respective dropdown
  *      group and returns the dropdowns current value
  * @param  Node button - A Button object
@@ -102,9 +132,13 @@ function findDevice(button){
 function addDevice(){
     // NOTE: 'this' will refer to button itself
 
+    // get device to add
     var deviceName = findDevice(this);
 
-    console.log(deviceName);
+    // Send ajax request to add a new device
+    var currURL = document.getElementById("url-input").value;
+    var params = "url="+currURL+"&task=addDevice&deviceName="+deviceName;
+    sendAjaxRequest(params);
 
 } // End of addDevice
 
@@ -118,6 +152,10 @@ function removeDevice(){
     // NOTE: 'this' will refer to button itself
 
     var deviceName = findDevice(this);
+    // Send ajax request to add a new device
+    var currURL = document.getElementById("url-input").value;
+    var params = "url="+currURL+"&task=removeDevice&deviceName="+deviceName;
+    sendAjaxRequest(params);
 
 } // End of removeDevice
 
@@ -158,22 +196,10 @@ function toggleOptionDisplay(){
  * @return null
  */
 function changeFrames(source){
+
     // Send AJAX request to change device options
-    var xmlhttp = new XMLHttpRequest();
-
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("output").innerHTML = this.responseText;
-            /* TODO: Change width of output based on frames */
-        }
-    };
-
-    /* TODO: Change to post */
-    xmlhttp.open("POST", "filter.php", true);
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    // Grab current url
     var currURL = document.getElementById("url-input").value;
     var params = "source="+source+"&url="+currURL;
-    xmlhttp.send(params);
+    sendAjaxRequest(params);
 
 } // End of changeFrames

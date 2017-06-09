@@ -17,14 +17,28 @@
     // checker for submitted task
     if(isset($_POST['task']) && $_POST['task'] != ""){
         // If the action variable has been set and is not empty (should never be)
-        if($_POST['task'] == "changeURL"){
-            // Changing the url variable
-            $url = (isset($_POST['url']) && ($_POST['url'] != "#")) ? $_POST['url'] : "./placeholder.html";
-            if(strpos($url, "https://") === FALSE){ // TODO: replace with regex expression
-                // If url does not start with https://
-                $url = "https://".$url;
-            }
+        switch ($_POST['task']) {
+            case 'changeURL':
+                // Changing the url variable
+                $url = (isset($_POST['url']) && ($_POST['url'] != "#")) ? $_POST['url'] : "./placeholder.html";
+
+                if(strpos($url, "https://") === FALSE){ // TODO: replace with regex expression
+                    // If url does not start with https://
+                    $url = "https://".$url;
+                }
+
+                break;
+            case "addDevice":
+                echo "<p>Add Device Request found ".$_POST['deviceName']."</p>";
+                break;
+            case "removeDevice":
+                echo "<p>Remove Device Request found ".$_POST['deviceName']."</p>";
+                break;
+            default:
+                // TODO
+                break;
         }
+
     }
 
     if(isset($_REQUEST['source']) && $_REQUEST['source'] != "") {
