@@ -75,7 +75,7 @@ function toggleOptionDisplay(){
  *      output div based on the given source. Makes an AJAX call to filter.php
  *      to change frames.
  * @param  source - A String indicating what iframes ot display.
- * @return {[type]}        [description]
+ * @return null
  */
 function changeFrames(source){
     // Send AJAX request to change device options
@@ -84,6 +84,7 @@ function changeFrames(source){
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("output").innerHTML = this.responseText;
+            /* TODO: Change width of output based on frames */
         }
     };
 

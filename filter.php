@@ -51,7 +51,12 @@
         $totalItems = count($data);
         for($i = 0; $i < $totalItems; $i++){
             $currItem = $data[$i];
-            echo "<option>";
+            // Add style class based on selected field
+            if($currItem['selected'] === "true"){
+                echo '<option class="selected">';
+            }else{
+                echo "<option>";
+            }
             echo $currItem["device"]." (".$currItem["width"]."x".$currItem["height"].")";
             echo "</option>\n\t\t\t\t\t\t\t";
         }
@@ -67,25 +72,53 @@
      * @return null
      */
     function createFrames($source, $url){
-        global $COMMON_WIDTHS;
+        global $COMMON_WIDTHS, $frameData;
         //$url = $GLOBALS['url'];
 
         if($source == "width"){
             $frameData = $COMMON_WIDTHS;
-            echo "By width";
         }else{
-            // TODO: Change to actual data
-            $frameData = array(200, 300, 400);
-            echo "By device";
+            // Restart with a new array
+            $frameData = array();
+            // Apple Devices
+            $fileContents = file_get_contents("assets/data/apple_devices.json");
+            $appleData = json_decode($fileContents, true);
+
+            // Android devices
+            $fileContents = file_get_contents("assets/data/android_devices.json");
+            $androidData = json_decode($fileContents, true);
+
+            // All Devices - Only display one's with a true "selected" value
+            $data = array_merge($appleData, $androidData);
+
+            foreach ($data as $curr) {
+                if($curr['selected'] === "true"){
+                    $newKey = $curr['device'];
+                    $frameData[(string)$newKey] = $curr;
+                }
+            }
+
+            // Sort by increasing width
+            uasort($frameData, function($first, $second){
+                return (int)$first['width'] > (int)$second['width'];
+            });
+
         }
 
         foreach($frameData as $curr){
-            // Place each iframe and it's width title
-            // together in one div
+            // Place each iframe and it's width title together in one div
             echo "<div class='frame-holder'>";
-            echo "<span>".$curr."</span>";
+
+            // For display by width, just use curr var; otherwise, insert device
+            // name and its dimensions
+            $output = ($source == "width") ? $curr : ($curr['device']." (".$curr["width"]."x".$curr["height"].")");
+            echo "<span>".$output."</span>";
             echo "<iframe src='".$url."' ";
-            echo "width='".$curr."' height='500'>";
+
+            // For display by width, just use curr var; otherwise, need to
+            // dereference multidim array
+            $width = ($source == "width") ? $curr : $curr['width'];
+            echo "width='".$width."' height='500'>";
             echo "</iframe>";
             echo "</div>\n\t\t\t\t";
         }

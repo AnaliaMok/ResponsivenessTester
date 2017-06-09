@@ -1,6 +1,10 @@
 <?php
     // URL used by the iframes - by default, just current page
     $url = "./placeholder.html";
+
+    // Empty array holding the titles and dimensions of the iframes
+    $frameData = array();
+
     // including methods defined in filer.php - handles all form validation
     include "filter.php";
 ?>
@@ -74,6 +78,8 @@
         <!-- Where various screens are displayed -->
         <div id="output">
             <?php createFrames("width", $url); ?>
+    
         </div><!-- End of output -->
+
     </body>
 </html>

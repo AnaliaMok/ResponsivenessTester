@@ -46,6 +46,12 @@ div#deviceOptions{
     margin-left: 1.5rem;
 }
 
+/* Class for selected device options */
+option.selected{
+    /*color: aqua; */
+    font-weight: bold;
+}
+
 /* Forms holding device selection */
 div#deviceOptions form{
     display: inline-block;
