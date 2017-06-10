@@ -36,6 +36,11 @@ function init(){
     androidButtons[0].onclick = addDevice;
     androidButtons[1].onclick = removeDevice;
 
+    // Initialize frames
+    var currURL = "./placeholder.html";
+    var params = "url="+currURL+"&task=initialize";
+    sendAjaxRequest(params);
+
 } // End of init
 
 
@@ -100,13 +105,13 @@ function findDevice(button){
         case "apple":
             deviceName =  document.getElementById("appleDevices").value;
             if(deviceName != ""){
-                return deviceName;
+                return [deviceName, "apple"];
             }
             break;
         case "android":
             deviceName =  document.getElementById("androidDevices").value;
             if(deviceName != ""){
-                return deviceName;
+                return [deviceName, "android"];
             }
             break;
         default:
@@ -133,13 +138,17 @@ function addDevice(){
     // NOTE: 'this' will refer to button itself
 
     // get device to add
-    var deviceName = findDevice(this);
+    var deviceInfo = findDevice(this);
+    if(deviceInfo != null){
+        var deviceName = deviceInfo[0];
+        var deviceType = deviceInfo[1];
 
-    // Send ajax request to add a new device
-    var currURL = document.getElementById("url-input").value;
-    var params = "url="+currURL+"&task=addDevice&deviceName="+deviceName;
-    sendAjaxRequest(params);
-
+        // Send ajax request to add a new device
+        var currURL = document.getElementById("url-input").value;
+        var params = "url="+currURL+"&task=addDevice&deviceName="+deviceName+"&deviceType="+deviceType;
+        sendAjaxRequest(params);
+    }
+    // Otherwise, do nothing
 } // End of addDevice
 
 
@@ -151,11 +160,18 @@ function addDevice(){
 function removeDevice(){
     // NOTE: 'this' will refer to button itself
 
-    var deviceName = findDevice(this);
-    // Send ajax request to add a new device
-    var currURL = document.getElementById("url-input").value;
-    var params = "url="+currURL+"&task=removeDevice&deviceName="+deviceName;
-    sendAjaxRequest(params);
+    var deviceInfo = findDevice(this)
+
+    if(deviceInfo != null){
+        var deviceName = deviceInfo[0];
+        var deviceType = deviceInfo[1];
+        // Send ajax request to add a new device
+        var currURL = document.getElementById("url-input").value;
+        var params = "url="+currURL+"&task=removeDevice&deviceName="+deviceName+"&deviceType="+deviceType;
+        sendAjaxRequest(params);
+    }
+
+    // Otherwise, do nothing
 
 } // End of removeDevice
 

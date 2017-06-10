@@ -18,7 +18,10 @@
     if(isset($_POST['task']) && $_POST['task'] != ""){
         // If the action variable has been set and is not empty (should never be)
         switch ($_POST['task']) {
-            case 'changeURL':
+            case "initialize":
+                createNewFrames("width", $_POST['url']);
+                break;
+            case "changeURL":
                 // Changing the url variable
                 $url = (isset($_POST['url']) && ($_POST['url'] != "#")) ? $_POST['url'] : "./placeholder.html";
 
@@ -32,11 +35,13 @@
                 echo "<p>Add Device Request found ".$_POST['deviceName']."</p>";
                 // TODO: Create function to adjust frameData array and output
                 // htmk content
+                addToFrameData($_POST['deviceName'], $_POST['deviceType']);
                 break;
             case "removeDevice":
                 echo "<p>Remove Device Request found ".$_POST['deviceName']."</p>";
                 // TODO: Create function to adjust frameData array and output
                 // htmk content
+                removeFromFrameData($_POST['deviceName'], $_POST['deviceType']);
                 break;
             default:
                 // TODO
@@ -47,7 +52,7 @@
 
     if(isset($_REQUEST['source']) && $_REQUEST['source'] != "") {
         // If the source type for the iframes has been set, echo out iframes.
-        createFrames($_REQUEST['source'], $_REQUEST['url']);
+        createNewFrames($_REQUEST['source'], $_REQUEST['url']);
     }
 
     /**
@@ -82,22 +87,21 @@
 
 
     /**
-     * createFrames - Creates test iframes based on display options.
+     * createNewFrames - Creates test iframes based on display options.
      *      Displays iframes based on COMMON_WIDTHS array on initial window load
      *      or display by width is selected. Displays iframes based on device
      *      widths stored in json files otherwise.
      * @param source String indicating what type of iframes to echo
      * @return null
      */
-    function createFrames($source, $url){
-        global $COMMON_WIDTHS, $frameData;
-        //$url = $GLOBALS['url'];
+    function createNewFrames($source, $url){
+        global $COMMON_WIDTHS;
 
         if($source == "width"){
-            $frameData = $COMMON_WIDTHS;
+            $GLOBALS['frameData'] = $COMMON_WIDTHS;
         }else{
             // Restart with a new array
-            $frameData = array();
+            $GLOBALS['frameData'] = array();
             // Apple Devices
             $fileContents = file_get_contents("assets/data/apple_devices.json");
             $appleData = json_decode($fileContents, true);
@@ -110,37 +114,58 @@
             $data = array_merge($appleData, $androidData);
 
             foreach ($data as $curr) {
-                if($curr['selected'] === "true"){
-                    $newKey = $curr['device'];
-                    $frameData[(string)$newKey] = $curr;
-                }
+                // Adding all data to frameData
+                $newKey = $curr['device'];
+                $GLOBALS['frameData'][(string)$newKey] = $curr;
             }
 
             // Sort by increasing width
-            uasort($frameData, function($first, $second){
+            uasort($GLOBALS['frameData'], function($first, $second){
                 return (int)$first['width'] > (int)$second['width'];
             });
 
         }
 
-        foreach($frameData as $curr){
-            // Place each iframe and it's width title together in one div
-            echo "<div class='frame-holder'>";
+        foreach($GLOBALS['frameData'] as $curr){
+            if($source == "width" || $curr['selected'] == "true"){
+                // Place each iframe and it's width title together in one div
+                echo "<div class='frame-holder'>";
 
-            // For display by width, just use curr var; otherwise, insert device
-            // name and its dimensions
-            $output = ($source == "width") ? $curr : ($curr['device']." (".$curr["width"]."x".$curr["height"].")");
-            echo "<span>".$output."</span>";
-            echo "<iframe src='".$url."' ";
+                // For display by width, just use curr var; otherwise, insert device
+                // name and its dimensions
+                $output = ($source == "width") ? $curr : ($curr['device']." (".$curr["width"]."x".$curr["height"].")");
+                echo "<span>".$output."</span>";
+                echo "<iframe src='".$url."' ";
 
-            // For display by width, just use curr var; otherwise, need to
-            // dereference multidim array
-            $width = ($source == "width") ? $curr : $curr['width'];
-            echo "width='".$width."' height='500'>";
-            echo "</iframe>";
-            echo "</div>\n\t\t\t\t";
+                // For display by width, just use curr var; otherwise, need to
+                // dereference multidim array
+                $width = ($source == "width") ? $curr : $curr['width'];
+                echo "width='".$width."' height='500'>";
+                echo "</iframe>";
+                echo "</div>\n\t\t\t\t";
+            }
         }
 
-    } // End of createFrames
+    } // End of createNewFrames
+
+
+    /**
+     * addToFrameData - Searches json data for a new
+     * @param [type] $deviceName [description]
+     * @param [type] $deviceType [description]
+     */
+    function addToFrameData($deviceName, $deviceType){
+
+        echo var_dump($GLOBALS['frameData']);
+
+    }
+
+    function removeFromFrameData($deviceName, $deviceType){
+
+    }
+
+    function regenFrames(){
+        // TODO: Re-echo frames based on modified frame data
+    }
 
 ?>
