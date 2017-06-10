@@ -33,15 +33,9 @@
                 break;
             case "addDevice":
                 echo "<p>Add Device Request found ".$_POST['deviceName']."</p>";
-                // TODO: Create function to adjust frameData array and output
-                // htmk content
-                addToFrameData($_POST['deviceName'], $_POST['deviceType']);
                 break;
             case "removeDevice":
                 echo "<p>Remove Device Request found ".$_POST['deviceName']."</p>";
-                // TODO: Create function to adjust frameData array and output
-                // htmk content
-                removeFromFrameData($_POST['deviceName'], $_POST['deviceType']);
                 break;
             default:
                 // TODO
