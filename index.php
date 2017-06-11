@@ -1,6 +1,8 @@
 <?php
     // Starting a session
-    session_start();
+    if(!isset($_SESSION)){
+        session_start();
+    }
 
     // URL used by the iframes - by default, just current page
     $_SESSION['url'] = "./placeholder.html";

@@ -38,12 +38,10 @@
 
                 break;
             case "addDevice":
-                //echo "<p>Add Device Request found ".$_POST['deviceName']."</p>";
-                addToFrameData($_POST['deviceName'], $_POST['deviceType']);
-
+                addToFrameData($_POST['deviceName']);
                 break;
             case "removeDevice":
-                echo "<p>Remove Device Request found ".$_POST['deviceName']."</p>";
+                removeFromFrameData($_POST['deviceName']);
                 break;
             default:
                 // TODO
@@ -155,21 +153,84 @@
 
     /**
      * addToFrameData - Searches json data for a new
-     * @param [type] $deviceName [description]
-     * @param [type] $deviceType [description]
+     * @param String $deviceName Name of device to search for frameData
+     * @return null
      */
-    function addToFrameData($deviceName, $deviceType){
-        echo "<p>Add Device Request found ".$deviceName."</p>";
-        echo "<pre>".print_r($_SESSION['frameData'])."</pre>";
+    function addToFrameData($deviceName){
 
-    }
+        $deviceName = trim($deviceName);
+        $deviceName = str_replace(" ", "", $deviceName);
 
-    function removeFromFrameData($deviceName, $deviceType){
+        $leftParenIdx = strpos($deviceName, "(");
 
-    }
+        // Just grabbing device name & removing any extra whitespace
+        $deviceName = trim(substr($deviceName, 0, $leftParenIdx));
 
+        if(isset($_SESSION['frameData'][$deviceName])){
+
+            if($_SESSION['frameData'][$deviceName]['selected'] != "true"){
+                // if device exists, set selected to true
+                $_SESSION['frameData'][$deviceName]['selected'] = "true";
+            }
+        }
+        // Just regenerate frames
+        regenFrames();
+    } // End of addToFrameData
+
+
+    /**
+     * removeFromFrameData - Attempts to find a given device in the frameData
+     *      variable, and switches selected field to false - if not already set.
+     *
+     * @param  String $deviceName - name of device plus its dimensions
+     * @return null
+     */
+    function removeFromFrameData($deviceName){
+        $deviceName = trim($deviceName);
+        $deviceName = str_replace(" ", "", $deviceName);
+
+        $leftParenIdx = strpos($deviceName, "(");
+
+        // Just grabbing device name & removing any extra whitespace
+        $deviceName = trim(substr($deviceName, 0, $leftParenIdx));
+
+        if(isset($_SESSION['frameData'][$deviceName])){
+
+            if($_SESSION['frameData'][$deviceName]['selected'] != "false"){
+                // if device exists, set selected to true
+                $_SESSION['frameData'][$deviceName]['selected'] = "false";
+            }
+        }
+        // regenerate frames
+        regenFrames();
+
+    } // End of removeFromFrameData
+
+
+    /**
+     * regenFrames - Echo out all device objects in frameData if selected is true
+     * @return null
+     */
     function regenFrames(){
-        // TODO: Re-echo frames based on modified frame data
-    }
+
+        foreach($_SESSION['frameData'] as $curr){
+
+            if($curr['selected'] == "true"){
+                // Place each iframe and it's width title together in one div
+                echo "<div class='frame-holder'>";
+
+                // device name and its dimensions
+                $output = $curr['device']." (".$curr["width"]."x".$curr["height"].")";
+                echo "<span>".$output."</span>";
+                echo "<iframe src='".$_SESSION['url']."' ";
+                echo "width='".$curr['width']."' height='500'>";
+                echo "</iframe>";
+                echo "</div>\n\t\t\t\t";
+            }
+
+        }
+        // echo print_r($_SESSION['frameData']);
+
+    } // End of regenFrames
 
 ?>

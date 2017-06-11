@@ -151,8 +151,10 @@ function addDevice(){
 
         // Send ajax request to add a new device
         var currURL = document.getElementById("url-input").value;
-        var params = "url="+currURL+"&task=addDevice&deviceName="+deviceName+"&deviceType="+deviceType;
+        var params = "url="+currURL+"&task=addDevice&deviceName="+deviceName;
         sendAjaxRequest(params);
+
+        // TODO: re-fill dropdown
     }
     // Otherwise, do nothing
 } // End of addDevice
@@ -173,8 +175,9 @@ function removeDevice(){
         var deviceType = deviceInfo[1];
         // Send ajax request to add a new device
         var currURL = document.getElementById("url-input").value;
-        var params = "url="+currURL+"&task=removeDevice&deviceName="+deviceName+"&deviceType="+deviceType;
+        var params = "url="+currURL+"&task=removeDevice&deviceName="+deviceName;
         sendAjaxRequest(params);
+        // TODO: re-fill dropdown
     }
 
     // Otherwise, do nothing
