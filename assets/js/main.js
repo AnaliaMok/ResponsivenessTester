@@ -25,16 +25,22 @@ function init(){
     widthRadioBtn.onclick = toggleOptionDisplay;
     deviceRadioBtn.onclick = toggleOptionDisplay;
 
-    // Device Selection Add & Remove Buttons
-    var appleButtons = document.getElementById("appleDeviceSelection")
-                               .getElementsByClassName("apple");
-    appleButtons[0].onclick = addDevice;
-    appleButtons[1].onclick = removeDevice;
-
-    var androidButtons = document.getElementById("androidDeviceSelection")
-                                 .getElementsByClassName("android");
-    androidButtons[0].onclick = addDevice;
-    androidButtons[1].onclick = removeDevice;
+    // // Device Selection Add & Remove Buttons
+    // var appleButtons = document.getElementById("appleDeviceSelection")
+    //                            .getElementsByClassName("apple");
+    //
+    // if(appleButtons != null){
+    //     appleButtons[0].onclick = addDevice;
+    //     appleButtons[1].onclick = removeDevice;
+    // }
+    //
+    // var androidButtons = document.getElementById("androidDeviceSelection")
+    //                              .getElementsByClassName("android");
+    //
+    // if(androidButtons != null){
+    //     androidButtons[0].onclick = addDevice;
+    //     androidButtons[1].onclick = removeDevice;
+    // }
 
     // Initialize frames
     var currURL = "./placeholder.html";
@@ -196,6 +202,24 @@ function toggleOptionDisplay(){
         // Show on device-based testing
         deviceOptions.style.display = "inline-block";
         source = "device";
+
+        // Assign Methods to add and remove buttons in device selections
+        // Device Selection Add & Remove Buttons
+        var appleButtons = document.getElementById("appleDeviceSelection")
+                                   .getElementsByClassName("apple");
+
+        if(appleButtons != null){
+            appleButtons[0].onclick = addDevice;
+            appleButtons[1].onclick = removeDevice;
+        }
+
+        var androidButtons = document.getElementById("androidDeviceSelection")
+                                     .getElementsByClassName("android");
+
+        if(androidButtons != null){
+            androidButtons[0].onclick = addDevice;
+            androidButtons[1].onclick = removeDevice;
+        }
     }
 
     // Change what frames are being displayed

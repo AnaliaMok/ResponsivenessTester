@@ -1,12 +1,15 @@
 <?php
+    // Starting a session
+    session_start();
+
     // URL used by the iframes - by default, just current page
-    $url = "./placeholder.html";
+    $_SESSION['url'] = "./placeholder.html";
 
     // Empty array holding the titles and dimensions of the iframes
     //$frameData = array();
 
     // including methods defined in filer.php - handles all form validation
-    //include "filter.php";
+    include "filter.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +34,7 @@
                 <!-- TODO: Change action to use ajax instead -->
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" name="urlForm">
                     <input type="text" name="url" placeholder="Enter url here"
-                    id="url-input" value="<?php echo ($url != "./placeholder.html") ? $url: "" ?>">
+                    id="url-input" value="<?php echo ($_SESSION['url'] != "./placeholder.html") ? $_SESSION['url']: "" ?>">
                     <input type="hidden" name="task" value="changeURL">
                 </form>
             </div><!-- End of url-input-holder -->
@@ -78,7 +81,9 @@
             </div><!-- End of inputs -->
         </main>
         <!-- Where various screens are displayed -->
-        <div id="output"></div><!-- End of output -->
+        <div id="output">
+            <?php createNewFrames("width", $_SESSION['url']); ?>
+        </div><!-- End of output -->
 
     </body>
 </html>

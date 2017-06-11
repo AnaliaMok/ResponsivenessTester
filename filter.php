@@ -8,6 +8,12 @@
     * @author Analia Mok
     */
 
+    if(!isset($_SESSION)){
+        // Start session if not already done
+        // NEED to use session variable
+        session_start();
+    }
+
     // Constant array for storing set screen widths
     $COMMON_WIDTHS = array(240, 320, 768, 1024, 1366, 1440);
 
@@ -23,16 +29,18 @@
                 break;
             case "changeURL":
                 // Changing the url variable
-                $url = (isset($_POST['url']) && ($_POST['url'] != "#")) ? $_POST['url'] : "./placeholder.html";
+                $_SESSION['url'] = (isset($_POST['url']) && ($_POST['url'] != "#")) ? $_POST['url'] : "./placeholder.html";
 
-                if(strpos($url, "https://") === FALSE){ // TODO: replace with regex expression
+                if(strpos($_SESSION['url'], "https://") === FALSE){ // TODO: replace with regex expression
                     // If url does not start with https://
-                    $url = "https://".$url;
+                    $_SESSION['url'] = "https://".$_SESSION['url'];
                 }
 
                 break;
             case "addDevice":
-                echo "<p>Add Device Request found ".$_POST['deviceName']."</p>";
+                //echo "<p>Add Device Request found ".$_POST['deviceName']."</p>";
+                addToFrameData($_POST['deviceName'], $_POST['deviceType']);
+
                 break;
             case "removeDevice":
                 echo "<p>Remove Device Request found ".$_POST['deviceName']."</p>";
@@ -92,10 +100,10 @@
         global $COMMON_WIDTHS;
 
         if($source == "width"){
-            $GLOBALS['frameData'] = $COMMON_WIDTHS;
+            $_SESSION['frameData'] = $COMMON_WIDTHS;
         }else{
             // Restart with a new array
-            $GLOBALS['frameData'] = array();
+            $_SESSION['frameData'] = array();
             // Apple Devices
             $fileContents = file_get_contents("assets/data/apple_devices.json");
             $appleData = json_decode($fileContents, true);
@@ -110,17 +118,17 @@
             foreach ($data as $curr) {
                 // Adding all data to frameData
                 $newKey = $curr['device'];
-                $GLOBALS['frameData'][(string)$newKey] = $curr;
+                $_SESSION['frameData'][(string)$newKey] = $curr;
             }
 
             // Sort by increasing width
-            uasort($GLOBALS['frameData'], function($first, $second){
+            uasort($_SESSION['frameData'], function($first, $second){
                 return (int)$first['width'] > (int)$second['width'];
             });
 
         }
 
-        foreach($GLOBALS['frameData'] as $curr){
+        foreach($_SESSION['frameData'] as $curr){
             if($source == "width" || $curr['selected'] == "true"){
                 // Place each iframe and it's width title together in one div
                 echo "<div class='frame-holder'>";
@@ -140,6 +148,8 @@
             }
         }
 
+        //echo "<pre>".print_r($_SESSION['frameData'])."</pre>";
+
     } // End of createNewFrames
 
 
@@ -149,8 +159,8 @@
      * @param [type] $deviceType [description]
      */
     function addToFrameData($deviceName, $deviceType){
-
-        echo var_dump($GLOBALS['frameData']);
+        echo "<p>Add Device Request found ".$deviceName."</p>";
+        echo "<pre>".print_r($_SESSION['frameData'])."</pre>";
 
     }
 
